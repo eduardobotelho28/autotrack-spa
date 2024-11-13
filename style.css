@@ -1,0 +1,121 @@
+* {
+    padding: 0px          ;
+    margin: 0px           ;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100% ;
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body {
+    background-color: #F2F5F7;
+    display: flex              ;
+    justify-content: center    ;
+    align-items: center        ;
+}
+
+table {
+    width: 100%                   ;
+    border-collapse: collapse     ;
+    font-family: Arial, sans-serif;
+    background-color: #fff      ; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead td {
+    font-weight: bold;
+    color: white;
+    background-color: #4A90E2;
+    padding: 12px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e1eef7;
+}
+
+tbody td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #D8EAF5;
+}
+
+td:last-child {
+    text-align: center;
+}
+
+.option-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #4A90E2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option-btn:hover {
+    background-color: #357ABD;
+}
+
+.option-btn.delete {
+    background-color: #E25656;
+}
+
+.option-btn.delete:hover {
+    background-color: #C14444;
+}
+
+.no-data {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: #f2f5f7; 
+    color: #333; 
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.presentation {
+    padding: 20px;
+    background-color: #9fbcde; 
+    color: black; 
+    border-radius: 5px;
+    text-align: left; 
+}
+
+.presentation h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.presentation p {
+    font-size: 1em;
+    margin: 0;
+}
+
+

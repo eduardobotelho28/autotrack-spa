@@ -1,5 +1,6 @@
 
 const form       = document.querySelector('form')
+const saveBtn    = form.querySelector('#save-btn')
 let isEditMode   = null //controla se o form é de criar ou atualizar
 let currentCarId = null
 
@@ -122,3 +123,54 @@ function resetForm() {
     form.querySelectorAll('input').forEach(input => input.value = '')
 }
 
+
+//começa processo para salvar os dados
+form.addEventListener('submit', (evt) => {
+
+    evt.preventDefault()
+
+    const data = {
+        mark:  form.querySelector('#mark').value  || null,
+        model: form.querySelector('#model').value || null,
+        year:  form.querySelector('#year').value  || null,
+        color: form.querySelector('#color').value || null
+    }
+
+
+    if(isEditMode) {
+        update(data)
+    }
+    else {
+        create(data)
+    }
+})
+
+async function update (data) {
+    console.log('agora é update')
+}
+
+async function create (data) {
+   
+    try {
+        const req = await fetch('https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (req.ok) {
+            const res = await req.json();
+            resetForm();
+            loadCars();
+        } 
+        else {
+            alert('erro:', await req.text());
+        }
+
+    } catch (error) {
+        alert('erro:', error);
+    }
+
+}

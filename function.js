@@ -1,4 +1,8 @@
 
+const form       = document.querySelector('form')
+let isEditMode   = null //controla se o form é de criar ou atualizar
+let currentCarId = null
+
 // ----------- RENDERIZA TODOS OS DADOS DA MOCKAPI ------------------ //
 async function loadCars () {
 
@@ -31,21 +35,25 @@ async function loadCars () {
 
             const tdMark      = document.createElement('td')
             tdMark.innerText  = car.mark
+            tdMark.setAttribute("data-name", 'mark')
 
             const tdModel     = document.createElement('td')
             tdModel.innerText = car.model
+            tdModel.setAttribute("data-name", 'model')
 
             const tdColor     = document.createElement('td')
             tdColor.innerText = car.color
+            tdColor.setAttribute("data-name", 'color')
 
             const tdYear     = document.createElement('td')
             tdYear.innerText = car.year
+            tdYear.setAttribute("data-name", 'year')
 
             const tdEdit     = document.createElement('td')
-            tdEdit.innerHTML = `<button class="option-btn" data-car-id="${car.id}">Editar</button>`
+            tdEdit.innerHTML = `<button class="option-btn" data-car-id="${car.id}" name="btn-edit">Editar</button>`
 
             const tdDelete   = document.createElement('td')
-            tdDelete.innerHTML = `<button class="option-btn delete" data-car-id="${car.id}">Excluir</button>`
+            tdDelete.innerHTML = `<button class="option-btn delete" data-car-id="${car.id}" name="btn-delete">Excluir</button>`
 
             tr.appendChild(tdMark);
             tr.appendChild(tdModel);
@@ -59,8 +67,8 @@ async function loadCars () {
         });
 
         table.appendChild(tbody)
-        main.appendChild(table)
 
+        loadBtnEditEvents()
     }
 
     //não há dados??
@@ -73,3 +81,44 @@ async function loadCars () {
     }
 }
 loadCars()
+
+
+// ------------ funções para abrir o form --------------------------- //
+document.querySelector('#new-car-button').addEventListener('click', () => {
+    resetForm()
+    form.classList.toggle('show')
+    isEditMode = false
+})
+
+function loadBtnEditEvents () {
+    document.querySelectorAll('[name="btn-edit"]').forEach (btn => {
+
+        btn.addEventListener('click', async (evt) => {
+
+            resetForm()
+            isEditMode   = true
+            currentCarId = evt.target.getAttribute("data-car-id")
+
+            //pega os dados do carro direto pela tabela em tela, sem a necessidade de fazer outra requisição.
+            const mark  = evt.target.closest('tr').querySelector("[data-name='mark']").innerText
+            const model = evt.target.closest('tr').querySelector("[data-name='model']").innerText
+            const year  = evt.target.closest('tr').querySelector("[data-name='year']").innerText
+            const color = evt.target.closest('tr').querySelector("[data-name='color']").innerText
+
+            //abre o form já com os dados do carro.
+            form.classList.toggle('show')
+            form.querySelector('#mark').value  = mark
+            form.querySelector('#model').value = model
+            form.querySelector('#year').value  = year
+            form.querySelector('#color').value = color
+            
+        })
+
+    })
+}
+// ------------------------------------------------------------------ //
+
+function resetForm() {
+    form.querySelectorAll('input').forEach(input => input.value = '')
+}
+

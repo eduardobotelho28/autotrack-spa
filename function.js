@@ -70,6 +70,7 @@ async function loadCars () {
         table.appendChild(tbody)
 
         loadBtnEditEvents()
+        loadBtnDeleteEvents()
     }
 
     //não há dados??
@@ -174,3 +175,40 @@ async function create (data) {
     }
 
 }
+
+
+//exclusão de dados
+function loadBtnDeleteEvents () {
+    document.querySelectorAll('[name="btn-delete"]').forEach (btn => {
+
+        btn.addEventListener('click', async (evt) => {
+            const id = evt.target.getAttribute("data-car-id")
+
+            if (id) {deleteItem(id)}
+        })
+
+    })
+}   
+
+async function deleteItem (id) {
+
+    try {
+        const req = await fetch(`https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (req.ok) {
+            const res = await req.json();
+            loadCars();
+        } 
+        else {
+            alert('erro:', await req.text());
+        }
+
+    } catch (error) {
+        alert('erro:', error);
+    }
+
+}
+
+

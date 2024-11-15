@@ -108,7 +108,7 @@ function loadBtnEditEvents () {
             const color = evt.target.closest('tr').querySelector("[data-name='color']").innerText
 
             //abre o form já com os dados do carro.
-            form.classList.toggle('show')
+            form.classList.add('show')
             form.querySelector('#mark').value  = mark
             form.querySelector('#model').value = model
             form.querySelector('#year').value  = year
@@ -147,7 +147,36 @@ form.addEventListener('submit', (evt) => {
 })
 
 async function update (data) {
-    console.log('agora é update')
+    
+    if(currentCarId) {
+        
+        data.id = currentCarId
+
+        try {
+            const req = await fetch(`https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars/${currentCarId}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+    
+            if (req.ok) {
+                const res = await req.json();
+                resetForm();
+                loadCars();
+                form.classList.toggle('show')
+            } 
+            else {
+                alert('erro:', await req.text());
+            }
+    
+        } catch (error) {
+            alert('erro:', error);
+        }
+
+    }
+
 }
 
 async function create (data) {
@@ -165,6 +194,7 @@ async function create (data) {
             const res = await req.json();
             resetForm();
             loadCars();
+            form.classList.toggle('show')
         } 
         else {
             alert('erro:', await req.text());

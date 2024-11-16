@@ -31,6 +31,7 @@ table {
 }
 
 thead td {
+    cursor: pointer;
     font-weight: bold;
     color: white;
     background-color: #4A90E2;
@@ -126,6 +127,15 @@ td:last-child, td:nth-last-child(2){
     cursor: pointer            ;
 }
 
+#input-filter {
+    border: 1px solid #357ABD;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+#label-filter {
+    margin-left: 40px;
+}
 
 form {
     display: flex;
@@ -159,6 +169,31 @@ form button[type="submit"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+form #close-form-btn {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #C14444;
+}
+
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.form-btns button {
+    width: 20%;
 }
 
 .show {

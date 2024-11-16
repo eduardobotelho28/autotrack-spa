@@ -16,25 +16,46 @@
             <p>O AutoTrack é um gerenciador de carros que ajuda a organizar e visualizar informações importantes sobre veículos.</p>
         </div>
 
-        <button id="new-car-button">Criar Novo Carro</button>
+        <div>
+            <button id="new-car-button">Criar Novo Carro</button>
+
+            <label for="input-filter" id="label-filter">Filtrar Por:</label>
+            <input id="input-filter">
+        </div>
 
         <!-- form de criacao/update -->
         <form style="display: none;">
             <h2>Adicionar/Editar Carro</h2>
 
-            <label for="mark">Marca</label>
-            <input type="text" id="mark" name="mark" required>
+            <div class="inputs">
 
-            <label for="model">Modelo</label>
-            <input type="text" id="model" name="model" required>
+                <div class="input-wrapper">
+                    <label for="mark">Marca</label>
+                    <input type="text" id="mark" name="mark" required>
+                </div>
 
-            <label for="color">Cor</label>
-            <input type="text" id="color" name="color" required>
+                <div class="input-wrapper">
+                    <label for="model">Modelo</label>
+                    <input type="text" id="model" name="model" required>
+                </div>
 
-            <label for="year">Ano</label>
-            <input type="number" id="year" name="year" required min="1886" max="2024">
+                <div class="input-wrapper">
+                    <label for="color">Cor</label>
+                    <input type="text" id="color" name="color" required>
+                </div>
 
-            <button type="submit" id="save-btn">Salvar</button>
+                <div class="input-wrapper">
+                    <label for="year">Ano</label>
+                    <input type="number" id="year" name="year" required min="1886" max="2024"> 
+                </div>
+
+            </div>
+
+            <div class="form-btns">
+                <button type="submit" id="save-btn">Salvar</button>
+                <button type="button" id="close-form-btn">Fechar Formulário</button>
+            </div>
+            
         </form>
 
         <table id="table">

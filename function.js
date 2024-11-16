@@ -1,8 +1,8 @@
 
-const form       = document.querySelector('form')
-const saveBtn    = form.querySelector('#save-btn')
-let isEditMode   = null //controla se o form é de criar ou atualizar
-let currentCarId = null
+const form        = document.querySelector('form')
+const inputFilter = document.querySelector('#input-filter')
+let isEditMode    = null //controla se o form é de criar ou atualizar
+let currentCarId  = null
 
 // ----------- RENDERIZA TODOS OS DADOS DA MOCKAPI ------------------ //
 async function loadCars () {
@@ -13,7 +13,7 @@ async function loadCars () {
     if(data.length > 0) {
 
         const table = document.getElementById('table')
-        const main  = document.getElementById('main')
+        // const main  = document.getElementById('main')
         const thead = document.createElement('thead')
         const tbody = document.createElement('tbody')
 
@@ -241,4 +241,24 @@ async function deleteItem (id) {
 
 }
 
+// ------------ filtro -------------------- //
+inputFilter.addEventListener('input', filterTable)
 
+function filterTable () {
+    const rows        = document.querySelectorAll('table tr')
+    const filterValue = inputFilter.value.toLowerCase();
+
+    rows.forEach (row => {
+        let hasMatch = false
+
+        row.querySelectorAll('td').forEach (td => {
+            if (td.textContent.toLowerCase().includes(filterValue)) {
+                hasMatch = true;
+              }
+        })
+
+        row.style.display = hasMatch ? 'table-row' : 'none';
+    })
+}
+
+document.querySelector('#close-form-btn').addEventListener('click', () => form.classList.remove('show'))

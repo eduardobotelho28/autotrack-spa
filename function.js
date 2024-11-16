@@ -245,7 +245,7 @@ async function deleteItem (id) {
 inputFilter.addEventListener('input', filterTable)
 
 function filterTable () {
-    const rows        = document.querySelectorAll('table tr')
+    const rows        = document.querySelectorAll('tbody tr')
     const filterValue = inputFilter.value.toLowerCase();
 
     rows.forEach (row => {

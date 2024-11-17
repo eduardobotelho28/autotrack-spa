@@ -1,8 +1,16 @@
 
-const form        = document.querySelector('form')
-const inputFilter = document.querySelector('#input-filter')
-let isEditMode    = null //controla se o form é de criar ou atualizar
-let currentCarId  = null
+const form         = document.querySelector('form')
+const inputFilter  = document.querySelector('#input-filter')
+const columnOrders = {};
+let isEditMode     = null //controla se o form é de criar ou atualizar
+let currentCarId   = null
+
+const columnTypes = {
+    'Marca'  : 'text'  ,
+    'Modelo' : 'text'  ,
+    'Ano'    : 'number',
+    'Cor'    : 'text'  ,
+};
 
 // ----------- RENDERIZA TODOS OS DADOS DA MOCKAPI ------------------ //
 async function loadCars () {
@@ -26,7 +34,7 @@ async function loadCars () {
                             <td>Modelo</td>
                             <td>Cor</td>
                             <td>Ano</td>
-                            <td colspan="2">Opçoes</td>
+                            <td colspan="2" class="options">Opçoes</td>
                         </tr>`
         table.appendChild(thead)
 
@@ -71,6 +79,7 @@ async function loadCars () {
 
         loadBtnEditEvents()
         loadBtnDeleteEvents()
+        loadTheadEvents()
     }
 
     //não há dados??
@@ -113,6 +122,8 @@ function loadBtnEditEvents () {
             form.querySelector('#model').value = model
             form.querySelector('#year').value  = year
             form.querySelector('#color').value = color
+
+            form.querySelector('#mark').focus()
             
         })
 
@@ -262,3 +273,54 @@ function filterTable () {
 }
 
 document.querySelector('#close-form-btn').addEventListener('click', () => form.classList.remove('show'))
+
+// -------------- ordenação ---------------------- //
+function loadTheadEvents () {
+    document.querySelectorAll('thead td:not(.options)').forEach (td => {
+
+        // Inicializa a ordem para cada coluna como null (não ordenada ainda)
+        columnOrders[td.textContent] = null;
+        td.addEventListener('click', () => orderByColumn(td))
+
+    })
+}
+
+function orderByColumn (td) {
+    const columnName = td.textContent
+    const tbody      = document.querySelector('tbody')
+    const rows       = Array.from(tbody.querySelectorAll('tr'))
+
+    // atualiza se a ordem da coluna clicada é asc ou desc.
+    columnOrders[columnName] = columnOrders[columnName] === null || columnOrders[columnName] === 'desc' ? 'asc' : 'desc'
+
+    const columnIndex        = Array.from(td.parentElement.children).indexOf(td)
+    const columnType         = columnTypes[columnName]
+
+    rows.sort(( a, b ) => {
+
+        const aValue = a.children[columnIndex].textContent.trim();
+        const bValue = b.children[columnIndex].textContent.trim();
+
+        let comparison;
+
+        switch(columnType) {
+            case 'number':
+        
+                const aNum = parseFloat(aValue.replace(/[^\d.-]/g, ''));
+                const bNum = parseFloat(bValue.replace(/[^\d.-]/g, ''));
+                comparison = aNum - bNum;
+                break;
+                    
+            case 'text':
+                comparison = aValue.localeCompare(bValue, undefined, {
+                    numeric: true,
+                    sensitivity: 'base'
+                });
+                break;
+        }
+        return columnOrders[columnName] === 'asc' ? comparison : -comparison;
+    })
+
+    tbody.innerHTML = '';
+    rows.forEach(row => tbody.appendChild(row));
+}

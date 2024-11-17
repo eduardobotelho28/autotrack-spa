@@ -145,7 +145,7 @@ tbody tr:hover {
 }
 
 /* New Car Button and Filter */
-#new-car-button {
+#new-car-button, #default-table-button {
     width: auto;
     min-width: 180px;
     padding: 12px 24px;

@@ -21,7 +21,6 @@ async function loadCars () {
     if(data.length > 0) {
 
         const table = document.getElementById('table')
-        // const main  = document.getElementById('main')
         const thead = document.createElement('thead')
         const tbody = document.createElement('tbody')
 
@@ -324,3 +323,8 @@ function orderByColumn (td) {
     tbody.innerHTML = '';
     rows.forEach(row => tbody.appendChild(row));
 }
+
+document.querySelector('#default-table-button').addEventListener('click', () => {
+    loadCars()
+    inputFilter.value = ''
+})

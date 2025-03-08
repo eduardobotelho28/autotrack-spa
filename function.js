@@ -15,7 +15,7 @@ const columnTypes = {
 // ----------- RENDERIZA TODOS OS DADOS DA MOCKAPI ------------------ //
 async function loadCars () {
 
-    const res  = await fetch('https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars')
+    const res  = await fetch('https://67cc9a16dd7651e464ec59e2.mockapi.io/cars')
     const data = await res.json()
 
     if(data.length > 0) {
@@ -163,7 +163,7 @@ async function update (data) {
         data.id = currentCarId
 
         try {
-            const req = await fetch(`https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars/${currentCarId}`, {
+            const req = await fetch(`https://67cc9a16dd7651e464ec59e2.mockapi.io/cars/${currentCarId}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json'
@@ -192,7 +192,7 @@ async function update (data) {
 async function create (data) {
    
     try {
-        const req = await fetch('https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars', {
+        const req = await fetch('https://67cc9a16dd7651e464ec59e2.mockapi.io/cars', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -233,7 +233,7 @@ function loadBtnDeleteEvents () {
 async function deleteItem (id) {
 
     try {
-        const req = await fetch(`https://673502e05995834c8a91ab68.mockapi.io/autotrack/cars/${id}`, {
+        const req = await fetch(`https://67cc9a16dd7651e464ec59e2.mockapi.io/cars/${id}`, {
             method: 'DELETE',
         });
 
